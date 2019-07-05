@@ -16,6 +16,25 @@ var wrongGuessText = document.getElementById("wrongguess-text");
 var gussesLeftText = document.getElementById("gussesleft-text");
 var winsText = document.getElementById("wins-text");
 var lossesText = document.getElementById("losses-text");
+var instructionText = document.getElementById("instruction-text");
+
+
+//Initializes the game and is called when one game round ends
+function initializeGame() {
+  hiddenWord = [];            //Adding values to the variable declared above
+  gussesLeft= 10;             //Adding values to the variable declared above
+  wrongGuess=[];              //Adding values to the variable declared above
+
+
+  wrongGuessText.textContent= wrongGuess.join(' ');
+  gussesLeftText.textContent= gussesLeft;
+  instructionText.textContent= "";
+
+  word = randomPick();
+  console.log("word ", word);     
+  hiddenText(word);
+  wordGuessText.textContent = textDisplay();
+}
 
 //Picking a random Word from the Array
 function randomPick() {
@@ -24,7 +43,7 @@ function randomPick() {
 
 //Converting the Word from Array into '_' and saving it in hiddenWord variable
 function hiddenText(word) {
-  for(w in word) { 
+  for(var i=0; i<word.length; i++) { 
     hiddenWord.push('_');
   }
 }
@@ -35,60 +54,71 @@ function textDisplay() {
   return displayAnswer.join(" ");
 }
 
-//Initializes the game and is called when one game round ends
-function initializeGame() {
-  hiddenWord = [];            //Adding values to the variable declared above
-  gussesLeft= 10;             //Adding values to the variable declared above
-  wrongGuess=[];              //Adding values to the variable declared above
-
-  word = randomPick();        
-  hiddenText(word);
-  wordGuessText.textContent = textDisplay();
-}
-
-
 //Takes input letter from the User and compares it with original word to check its existance
 function compareGuess() {
   document.onkeyup = function(event) {
-    var userGuess = event.key.toUpperCase();
-    console.log("userGuess",userGuess);
-        
+    var scope = /[A-Z]/g;
+
+    if(gussesLeft > 0 && wrongGuess.length < 11 && hiddenWord.indexOf('_') != -1) {
+      if(event.key.toUpperCase().match(scope) && hiddenWord.indexOf(event.key.toUpperCase()) == -1 && wrongGuess.indexOf(event.key.toUpperCase()) == -1) {
+        instructionText.textContent= "";
+        var userGuess = event.key.toUpperCase();
+      }
+      else if(!event.key.toUpperCase().match(scope)) {
+          instructionText.textContent= "Not a Letter...Try Again!!";
+          return;
+        }
+      else {
+        instructionText.textContent= "Letter already used...Try Again!!";
+        return;
+      }
+    }
+    else {
+      instructionText.textContent= "Press Play Again!!";
+      return;
+    }    
   
-    for(w in word) {
+    for(var w=0; w<word.length; w++) {
       if(userGuess == word[w]) {
         hiddenWord[w] = userGuess;
       }
     }
-        
+
     if(hiddenWord.indexOf(userGuess) != -1) {
       wordGuessText.textContent = textDisplay();
     }
-    else {
+    else {    
       gussesLeft--;
       wrongGuess.push(userGuess);
-      console.log("gussesLeft",gussesLeft);
-      console.log("wrongGuess",wrongGuess);
+      wrongGuessText.textContent= wrongGuess.join(' ');
+      gussesLeftText.textContent= gussesLeft;
     }
 
     roundDecider();                      //decides Win or Loss
   };
 }
 
-//Decides Win or Loss and reinitiates the game again
+//Decides Win or Loss
 function roundDecider() {
+
   if(hiddenWord.indexOf('_') === -1) {
     wins++;
+    winsText.textContent = wins;
     console.log("wins",wins);
-    initializeGame();
   }
-
   else if(gussesLeft === 0) {
     losses++;
+    lossesText.textContent = losses;
     console.log("losses",losses);
-    initializeGame();
   }
 }
 
+//reinitiates the game again
+function playAgain() {
+  initializeGame();
+}
 
-compareGuess();
+winsText.textContent= wins;
+lossesText.textContent= losses;
 initializeGame();
+compareGuess();

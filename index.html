@@ -4,22 +4,26 @@
     <meta charset="UTF-8">
     <title>Word Guess Game</title>
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.9.0/css/all.css" integrity="sha384-i1LQnF23gykqWXg6jxC2ZbCbUMxyw5gLZY6UiUS98LYV5unm8GWmfkIS6jqJfb4E" crossorigin="anonymous">
   </head>
   <body>
 
     <h1>The Word Guess Game</h1>
 
+    <h4 id="instruction-text"></h4>
+
     <h4 id="wordguess-text"></h4>
 
-    <h4 id="wrongguess-text"></h4>
+    <h4>Wrong Gusses: <span id="wrongguess-text"></span></h4>
 
-    <h4 id="gussesleft-text"></h4>
+    <h4>Gusses Left: <span id="gussesleft-text"></span></h4>
 
-    <h4 id="wins-text"></h4>
+    <h4>Wins: <span id="wins-text"></span></h4>
 
-    <h4 id="losses-text"></h4>
+    <h4>Losses: <span id="losses-text"></span></h4>
 
-    <h4 id="instruction-text"></h4>
+    <button onclick="playAgain()">Play Again!!</button>
+
 
     <script type="text/javascript" src="assets/javascript/game.js"></script>
 
