@@ -17,6 +17,8 @@ var gussesLeftText = document.getElementById("gussesleft-text");
 var winsText = document.getElementById("wins-text");
 var lossesText = document.getElementById("losses-text");
 var instructionText = document.getElementById("instruction-text");
+var lostAudio = document.getElementById("lost-audio");
+var winAudio = document.getElementById("win-audio");
 
 
 //Initializes the game and is called when one game round ends
@@ -29,6 +31,7 @@ function initializeGame() {
   wrongGuessText.textContent= wrongGuess.join(' ');
   gussesLeftText.textContent= gussesLeft;
   instructionText.textContent= "";
+  clearEmoji();
 
   word = randomPick();
   console.log("word ", word);     
@@ -54,9 +57,18 @@ function textDisplay() {
   return displayAnswer.join(" ");
 }
 
+function clearEmoji() {
+  instructionText.classList.remove("fa-grin-stars");
+  instructionText.classList.remove("fa-sad-cry");
+  instructionText.classList.remove("fa-check");
+  instructionText.classList.remove("fa-times");
+  instructionText.textContent="";
+}
+
 //Takes input letter from the User and compares it with original word to check its existance
 function compareGuess() {
   document.onkeyup = function(event) {
+    clearEmoji();
     var scope = /[A-Z]/g;
 
     if(gussesLeft > 0 && wrongGuess.length < 11 && hiddenWord.indexOf('_') != -1) {
@@ -86,14 +98,16 @@ function compareGuess() {
 
     if(hiddenWord.indexOf(userGuess) != -1) {
       wordGuessText.textContent = textDisplay();
+      instructionText.classList.add("fa-check");
     }
     else {    
       gussesLeft--;
       wrongGuess.push(userGuess);
       wrongGuessText.textContent= wrongGuess.join(' ');
       gussesLeftText.textContent= gussesLeft;
+      instructionText.classList.add("fa-times");
     }
-
+    
     roundDecider();                      //decides Win or Loss
   };
 }
@@ -101,15 +115,22 @@ function compareGuess() {
 //Decides Win or Loss
 function roundDecider() {
 
+
   if(hiddenWord.indexOf('_') === -1) {
     wins++;
     winsText.textContent = wins;
     console.log("wins",wins);
+    clearEmoji();
+    instructionText.classList.add("fa-grin-stars");
+    winAudio.play();
   }
   else if(gussesLeft === 0) {
     losses++;
     lossesText.textContent = losses;
     console.log("losses",losses);
+    lostAudio.play();
+    clearEmoji();
+    instructionText.classList.add("fa-sad-cry");
   }
 }
 

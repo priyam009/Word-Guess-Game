@@ -17,3 +17,29 @@ body {
   display: block;
   width: 100%;
 }
+
+.text-container {
+  font-size: 40px;
+  text-align: center;
+  color: #fff;
+}
+
+.fa-check {
+  font-size: 300px;
+  color: green;
+}
+
+.fa-times {
+  font-size: 300px;
+  color: red;
+}
+
+.fa-sad-cry {
+  font-size: 300px;
+  color: yellow;
+}
+
+.fa-grin-stars {
+  font-size: 300px;
+  color: yellow;
+}
