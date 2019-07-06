@@ -64,7 +64,7 @@ function compareGuess() {
         instructionText.textContent= "";
         var userGuess = event.key.toUpperCase();
       }
-      else if(!event.key.toUpperCase().match(scope)) {
+      else if(!event.key.toUpperCase().match(scope)) {``
           instructionText.textContent= "Not a Letter...Try Again!!";
           return;
         }

@@ -3,14 +3,82 @@
   <head>
     <meta charset="UTF-8">
     <title>Word Guess Game</title>
+    <link rel="stylesheet" href="./assets/css/reset.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.9.0/css/all.css" integrity="sha384-i1LQnF23gykqWXg6jxC2ZbCbUMxyw5gLZY6UiUS98LYV5unm8GWmfkIS6jqJfb4E" crossorigin="anonymous">
   </head>
   <body>
+    
+    <nav class="jumbotron bg-dark mb-0 pt-2 pb-2">
+      <div>        
+        <h1 class="display-4 text-light text-center">The Word Guess Game</h1>
+        <p class="lead text-light text-center">Guess the City</p>
+      </div>
+    </nav>
 
-    <h1>The Word Guess Game</h1>
+    <div class="container jumbotron game-container">
+      <div class="row game-row1">
+        <div class="col-md-7">
+          <div class="row">
+            <div class="col-md-12">
+              <h4 id="wordguess-text" class="alert alert-primary game-text"></h4>
+            </div>
+          </div>
 
-    <h4 id="instruction-text"></h4>
+          <div class="row">
+            <div class="col-md-12">
+              <h4 class="alert alert-info game-text">Wrong Gusses: <span id="wrongguess-text"></span></h4>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <h4 class="alert alert-warning game-text">Gusses Left: <span id="gussesleft-text"></span></h4>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <h4 class="alert alert-success game-text">Wins: <span id="wins-text"></span></h4>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <h4 class="alert alert-danger game-text">Losses: <span id="losses-text"></span></h4>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <button class="alert btn btn-dark btn-lg game-text btn-container" onclick="playAgain()">Play Again!</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-2"></div>
+
+        <div class="col-md-3">
+          <div class="row">
+            <div class="col-md-12"></div>
+          </div>
+          <div class="row">
+            <div>
+                <h4 id="instruction-text"></h4>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+  
+    <!-- <h4 id="instruction-text"></h4>
 
     <h4 id="wordguess-text"></h4>
 
@@ -22,7 +90,7 @@
 
     <h4>Losses: <span id="losses-text"></span></h4>
 
-    <button onclick="playAgain()">Play Again!!</button>
+    <button onclick="playAgain()">Play Again!!</button> -->
 
 
     <script type="text/javascript" src="assets/javascript/game.js"></script>

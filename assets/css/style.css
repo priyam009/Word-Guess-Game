@@ -1,0 +1,19 @@
+body {
+  background: url(../images/wordGuess-background.jpg);
+  background-size: cover;
+  font-family: 'Roboto', sans-serif;
+}
+
+.game-container {
+  margin-top: 50px; 
+  background: rgba(255,255,255, 0.3);
+}
+
+.game-text {
+  text-align: center;
+}
+
+.btn-container {
+  display: block;
+  width: 100%;
+}
