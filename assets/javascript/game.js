@@ -10,7 +10,7 @@ var wrongGuess;
 var wins= 0;
 var losses= 0;
 
-
+//Getting all values in HTML id and storing in variables
 var wordGuessText = document.getElementById("wordguess-text");
 var wrongGuessText = document.getElementById("wrongguess-text");
 var gussesLeftText = document.getElementById("gussesleft-text");
@@ -27,16 +27,15 @@ function initializeGame() {
   gussesLeft= 10;             //Adding values to the variable declared above
   wrongGuess=[];              //Adding values to the variable declared above
 
-
-  wrongGuessText.textContent= wrongGuess.join(' ');
-  gussesLeftText.textContent= gussesLeft;
-  instructionText.textContent= "";
-  clearEmoji();
+  wrongGuessText.textContent= wrongGuess.join(' ');   //Clearing wrongGuess text
+  gussesLeftText.textContent= gussesLeft;             //Updating Gusses Left
+                   
+  clearEmoji();                                       //Function call to Clear Instruction Text or Emoji Content
 
   word = randomPick();
   console.log("word ", word);     
   hiddenText(word);
-  wordGuessText.textContent = textDisplay();
+  wordGuessText.textContent = textDisplay();          //Updating Guessing Word Text
 }
 
 //Picking a random Word from the Array
@@ -57,36 +56,37 @@ function textDisplay() {
   return displayAnswer.join(" ");
 }
 
+//Clearing Instruction Text or Emoji Content
 function clearEmoji() {
   instructionText.classList.remove("fa-grin-stars");
   instructionText.classList.remove("fa-sad-cry");
   instructionText.classList.remove("fa-check");
   instructionText.classList.remove("fa-times");
-  instructionText.textContent="";
+  instructionText.textContent = "";
 }
 
 //Takes input letter from the User and compares it with original word to check its existance
 function compareGuess() {
   document.onkeyup = function(event) {
-    clearEmoji();
-    var scope = /[A-Z]/g;
+    clearEmoji();                 //Function call to Clear Instruction Text or Emoji Content
+    var scope = /[A-Z]/g;         //To check if only Uppercase Alplhabets are pressed
 
     if(gussesLeft > 0 && wrongGuess.length < 11 && hiddenWord.indexOf('_') != -1) {
       if(event.key.toUpperCase().match(scope) && hiddenWord.indexOf(event.key.toUpperCase()) == -1 && wrongGuess.indexOf(event.key.toUpperCase()) == -1) {
-        instructionText.textContent= "";
-        var userGuess = event.key.toUpperCase();
+        instructionText.textContent= "";                   //Clearing instruction text content
+        var userGuess = event.key.toUpperCase();          //Saving key pressed to userGuess variable if condition satisfied
       }
-      else if(!event.key.toUpperCase().match(scope)) {``
-          instructionText.textContent= "Not a Letter...Try Again!!";
+      else if(!event.key.toUpperCase().match(scope)) {
+          instructionText.textContent= "Not a Letter...Try Again!!";        //if the key pressed is not Uppercase Alphabet
           return;
         }
       else {
-        instructionText.textContent= "Letter already used...Try Again!!";
+        instructionText.textContent= "Letter already used...Try Again!!";   //if key pressed is a repeating letter
         return;
       }
     }
     else {
-      instructionText.textContent= "Press Play Again!!";
+      instructionText.textContent= "Press Play Again!!";   
       return;
     }    
   
@@ -97,40 +97,38 @@ function compareGuess() {
     }
 
     if(hiddenWord.indexOf(userGuess) != -1) {
-      wordGuessText.textContent = textDisplay();
+      wordGuessText.textContent = textDisplay();            //Updating Guessing word to reflect new changes
       instructionText.classList.add("fa-check");
     }
     else {    
       gussesLeft--;
       wrongGuess.push(userGuess);
-      wrongGuessText.textContent= wrongGuess.join(' ');
-      gussesLeftText.textContent= gussesLeft;
+      wrongGuessText.textContent= wrongGuess.join(' ');     //Updating wrong guess
+      gussesLeftText.textContent= gussesLeft;               //Updating guesses left
       instructionText.classList.add("fa-times");
     }
     
-    roundDecider();                      //decides Win or Loss
+    roundDecider();                                         //decides Win or Loss
   };
 }
 
 //Decides Win or Loss
 function roundDecider() {
-
-
   if(hiddenWord.indexOf('_') === -1) {
     wins++;
-    winsText.textContent = wins;
+    winsText.textContent = wins;                            //Updating Win Value
     console.log("wins",wins);
-    clearEmoji();
-    instructionText.classList.add("fa-grin-stars");
-    winAudio.play();
+    clearEmoji();                                           //Function call to Clear Instruction Text or Emoji Content
+    instructionText.classList.add("fa-grin-stars");         //Shows winning Emoji
+    winAudio.play();                                        //Plays Winning Audio
   }
   else if(gussesLeft === 0) {
     losses++;
-    lossesText.textContent = losses;
+    lossesText.textContent = losses;                        //Updating Loss Value
     console.log("losses",losses);
-    lostAudio.play();
-    clearEmoji();
-    instructionText.classList.add("fa-sad-cry");
+    lostAudio.play();                                       //Plays Winning Audio
+    clearEmoji();                                           //Function call to Clear Instruction Text or Emoji Content
+    instructionText.classList.add("fa-sad-cry");            //Shows winning Emoji
   }
 }
 
